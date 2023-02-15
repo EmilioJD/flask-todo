@@ -4,7 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.app_context().push()
 
-# /// = relative path, //// = absolute path
+#TEMPLATE Concept - allows you to reuse frontend code throughout
+#the application, template itself housed in templates
+
+#INTERNAL DATABASE CONCEPT - allows you to make a database
+#within the framework itself
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -16,6 +20,11 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean)
 
 
+#ROUTING this allows us to use different HTTP request and 
+#render different parts of the website at different times
+
+#DECORATOR concept! all of these functions inherit the properties
+#of routes. This is native to python and syntactic sugar
 @app.route("/")
 def home():
     todo_list = Todo.query.all()
